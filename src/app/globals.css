@@ -40,3 +40,11 @@ a {
     color-scheme: dark;
   }
 }
+
+.section-wrapper{
+    border: 1px solid #ccc;
+    width: 1697px;
+    height: 1200px;
+    padding: 16px;
+    position: relative;
+}
