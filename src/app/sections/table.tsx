@@ -21,6 +21,7 @@ function TablePage() {
 
   const refText = React.useRef<HTMLTableCellElement>(null);
   const [fontSize, setFontSize] = React.useState(12);
+  const [fontColor, setFontColor] = React.useState('initial');
   const [open, setOpen] = React.useState(false);
   const [current, setCurrent] = React.useState('');
   const [currentelement, setCurrentElement] = React.useState<HTMLTableCellElement | null>(null);
@@ -30,6 +31,7 @@ function TablePage() {
   }
   function changeValue(e: any) {
     currentelement.style.fontSize = fontSize + 'px';
+    currentelement.style.color = fontColor;
 
     setCurrentValue(current);
     setOpen(false);
@@ -41,6 +43,11 @@ function TablePage() {
   function openDialog(e) {
     setCurrentElement(e.target);
     setOpen(true);
+  }
+
+  function changeFontColor(e: string) {
+    console.log(e, 'changeFontColor')
+    setFontColor(e);
   }
 
   return <Box
@@ -138,6 +145,16 @@ function TablePage() {
       }}
       />
       </Stack>
+        <Stack direction="row" spacing={2}>
+          Цвет шрифта:
+          <Input
+            type="color"
+            onChange={(e)=>{
+              console.log(e.target.value, 'change')
+              changeFontColor(e.target.value as unknown as string)
+            }}
+          />
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button onClick={changeValue}>Принять</Button>
