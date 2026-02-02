@@ -30,6 +30,8 @@ export function useShadowDOM() {
         position: fixed;
         inset: 0;
         z-index: 10000;
+        left: 0;
+        height: 100vh;
         pointer-events: none;
         display: ${pathname.includes('print-pdf') ? 'none' : 'block'};
       }

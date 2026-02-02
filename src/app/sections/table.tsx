@@ -1,6 +1,6 @@
 import React from 'react';
 import {Header} from '../../components/header/Header';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Input } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Dialog, DialogTitle, DialogContent, Stack, DialogActions, Button, Input } from '@mui/material';
 
 function createData(
   name: string,
@@ -20,18 +20,26 @@ const rows = [
 function TablePage() {
 
   const refText = React.useRef<HTMLTableCellElement>(null);
+  const [fontSize, setFontSize] = React.useState(12);
   const [open, setOpen] = React.useState(false);
   const [current, setCurrent] = React.useState('');
+  const [currentelement, setCurrentElement] = React.useState<HTMLTableCellElement | null>(null);
   const [currentValue, setCurrentValue] = React.useState('это можно изменить');
   function handleClose() {
     setOpen(false);
   }
   function changeValue(e: any) {
+    currentelement.style.fontSize = fontSize + 'px';
+
     setCurrentValue(current);
     setOpen(false);
   }
 
-  function openDialog() {
+  function changeFontSize(e: number) {
+    setFontSize(e);
+  }
+  function openDialog(e) {
+    setCurrentElement(e.target);
     setOpen(true);
   }
 
@@ -113,11 +121,23 @@ function TablePage() {
     >
       <DialogTitle>{"Внесите изменения"}</DialogTitle>
       <DialogContent>
-          <Input
+        <Stack direction="row" spacing={2}>
+          текст: <Input
           onChange={(e) =>{
             setCurrent(e.target.value)}
           }
           ></Input>
+      </Stack>
+        <Stack direction="row" spacing={2}>
+          Размер шрифта:
+      <Input
+        type="number"
+      onChange={(e)=>{
+        console.log(e.target.value, 'change')
+        changeFontSize(e.target.value as unknown as number)
+      }}
+      />
+      </Stack>
       </DialogContent>
       <DialogActions>
         <Button onClick={changeValue}>Принять</Button>
